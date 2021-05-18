@@ -44,7 +44,7 @@ const router = createRouter({
         { path: '/:notFound(.*)', component:NotFound },
     ],
     linkActiveClass: 'active',
-    scrollBehavior(_, _2, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
         
         if(savedPosition){
             return savedPosition
@@ -57,11 +57,18 @@ const router = createRouter({
 router.beforeEach( function(to, from, next){
     console.log('Global BeforeEach');
     console.log('to:', to, 'from:',from);
+    
+    // Redirect through next() same as next('/path...')
+    // if(to.name !== 'team-members'){
+    //     next({name:'team-members', params:{teamId: 't2'}});
+    // } 
     next();
 })
 router.afterEach( function(to, from){
+    // sending analytics data
     console.log('Global afterEach');
     console.log('to:', to, 'from:',from);
+    
 })
 
 const app = createApp(App)
